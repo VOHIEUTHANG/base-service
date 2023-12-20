@@ -18,7 +18,7 @@ ev.options({
 
 (async () => {
   try {
-    require('./bullmq/worker')();
+    // require('./bullmq/worker')();
     require('./job/index');
     console.log('SHOPDUNK EOFFICE MESSAGE QUEUE  has been initialized: ');
   } catch (error) {

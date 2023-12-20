@@ -13,13 +13,13 @@ const addIfNotExists = async ({ type, payload, jobId }) => {
   try {
     const existingJob = await queue.getJob(jobId);
     if (!existingJob) {
-      console.log('addingJob', jobId)
+      console.log('addingJob', jobId);
       queue.add(config.BULLMQ.QUEUE, { type, payload }, { jobId });
-    } else{
-      console.log('existingJob', jobId)
+    } else {
+      console.log('existingJob', jobId);
     }
   } catch (error) {
-    console.log('~ addIfNotExists error >>>', error.message)
+    console.log('~ addIfNotExists error >>>', error.message);
   }
 };
 

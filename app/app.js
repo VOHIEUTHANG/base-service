@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const config = require('../config/config');
+const routes = require('./route');
 const pageNotFoundMiddleware = require('./middlewares/not-found.middleware');
 const errorHandlerMiddleware = require('./middlewares/error-handler.middleware');
 const useragent = require('express-useragent');
@@ -20,7 +21,7 @@ ev.options({
   try {
     // require('./bullmq/worker')();
     require('./job/index');
-    console.log('SHOPDUNK EOFFICE MESSAGE QUEUE  has been initialized: ');
+    console.log('SHOPDUNK EOFFICE CRON JOB  has been initialized ');
   } catch (error) {
     console.log(error);
   }
@@ -48,6 +49,9 @@ const init = (app) => {
   app.use(express.static(path.join(__dirname, '../storage'), { index: false }));
 
   app.use(require('./middlewares/check-apikey.middleware'));
+
+  // mount all routes on /api path
+  app.use('/api', routes);
 
   // catch 404 and forward to error handler
   app.use(pageNotFoundMiddleware());

@@ -1,9 +1,9 @@
-const RESPONSE_MSG = require("../common/const/responseMsg.const");
-const httpStatus = require("http-status");
-const config = require("../../config/config");
-const ErrorResponse = require("../common/responses/error.response");
+const RESPONSE_MSG = require('../common/const/responseMsg.const');
+const httpStatus = require('http-status');
+const config = require('../../config/config');
+const ErrorResponse = require('../common/responses/error.response');
 
-const REGEX_ROUTE_NOT_CHECK = ["/file*"];
+const REGEX_ROUTE_NOT_CHECK = ['/file*'];
 
 module.exports = async (req, res, next) => {
   const path = req.path;
@@ -21,7 +21,7 @@ module.exports = async (req, res, next) => {
 
   if (authorization && /^APIKEY /.test(authorization)) {
     // Remove Bearer from string
-    const token = authorization.replace("APIKEY ", "");
+    const token = authorization.replace('APIKEY ', '');
     try {
       if (token !== config.service_apikey) throw RESPONSE_MSG.TOKEN_REQUIRED;
       return next();
@@ -30,7 +30,5 @@ module.exports = async (req, res, next) => {
     }
   }
 
-  return next(
-    new ErrorResponse(httpStatus.UNAUTHORIZED, "", RESPONSE_MSG.TOKEN_REQUIRED)
-  );
+  return next(new ErrorResponse(httpStatus.UNAUTHORIZED, '', RESPONSE_MSG.TOKEN_REQUIRED));
 };
